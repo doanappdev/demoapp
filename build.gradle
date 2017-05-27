@@ -1,11 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+  ext.support_library_version = '25.3.1'
+  ext.dagger_version = '2.4'
+  ext.rxjava_version = '2.0.1'
   repositories {
     jcenter()
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:2.3.2'
+
+    classpath 'me.tatarka:gradle-retrolambda:3.2.5'
 
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
