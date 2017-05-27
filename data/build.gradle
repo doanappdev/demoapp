@@ -46,5 +46,13 @@ dependencies {
   compile "com.google.dagger:dagger:$dagger_version"
   annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
 
+  compile 'com.squareup.retrofit2:retrofit:2.2.0'
+  compile 'com.squareup.retrofit2:retrofit-mock:2.2.0'
+  compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+  compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+  compile 'com.squareup.okhttp3:okhttp:3.6.0'
+  compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+
+
   testCompile 'junit:junit:4.12'
 }

@@ -3,6 +3,7 @@ package com.app.demo.carsguide.dagger.component;
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.app.demo.carsguide.dagger.module.AppModule;
+import com.app.demo.carsguide.interactor.ArticleInteractor;
 import com.app.demo.data.dagger.DataModule;
 import com.google.gson.Gson;
 import dagger.Component;
@@ -20,4 +21,5 @@ public interface AppComponent {
   Gson getGson();
   Context getContext();
   SharedPreferences getSharedPreferences();
+  ArticleInteractor getArticleInteractor();
 }
