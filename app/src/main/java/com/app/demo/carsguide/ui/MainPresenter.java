@@ -1,10 +1,7 @@
 package com.app.demo.carsguide.ui;
 
-import android.util.Log;
 import com.app.demo.carsguide.base.BasePresenter;
 import com.app.demo.carsguide.interactor.ArticleInteractor;
-import com.app.demo.data.model.Article;
-import java.util.List;
 import javax.inject.Inject;
 
 /**
