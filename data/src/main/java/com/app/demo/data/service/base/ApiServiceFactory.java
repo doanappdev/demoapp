@@ -1,6 +1,5 @@
 package com.app.demo.data.service.base;
 
-import com.app.demo.data.service.BaseServiceFactory;
 import com.google.gson.Gson;
 import okhttp3.HttpUrl;
 

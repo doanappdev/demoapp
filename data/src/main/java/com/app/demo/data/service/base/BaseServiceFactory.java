@@ -1,4 +1,4 @@
-package com.app.demo.data.service;
+package com.app.demo.data.service.base;
 
 import com.google.gson.Gson;
 import okhttp3.HttpUrl;
@@ -22,9 +22,9 @@ public abstract class BaseServiceFactory {
   public abstract <T> T create(Class<T> serviceType);
 
   protected <T> T buildNetworkAdapter(HttpUrl baseUrl, Class<T> serviceType) {
-    //OkHttpClient httpClient = getHttpClient();
+    OkHttpClient httpClient = getHttpClient();
     Retrofit retrofit = new Retrofit.Builder()
-        //.client(httpClient)
+        .client(httpClient)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .baseUrl(baseUrl)
@@ -33,12 +33,12 @@ public abstract class BaseServiceFactory {
     return retrofit.create(serviceType);
   }
 
-  //
-  //protected OkHttpClient getHttpClient() {
-  //  OkHttpClient.Builder builder = new OkHttpClient.Builder()
-  //      .addInterceptor(e -> e.proceed(e.request()));
-  //  builder.addNetworkInterceptor(new HttpLoggingInterceptor()
-  //      .setLevel(HttpLoggingInterceptor.Level.BODY));
-  //  return builder.build();
-  //}
+
+  protected OkHttpClient getHttpClient() {
+    OkHttpClient.Builder builder = new OkHttpClient.Builder()
+        .addInterceptor(e -> e.proceed(e.request()));
+    builder.addNetworkInterceptor(new HttpLoggingInterceptor()
+        .setLevel(HttpLoggingInterceptor.Level.BODY));
+    return builder.build();
+  }
 }

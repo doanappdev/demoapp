@@ -1,5 +1,6 @@
 package com.app.demo.carsguide.ui;
 
+import android.util.Log;
 import com.app.demo.carsguide.base.BasePresenter;
 import com.app.demo.carsguide.interactor.ArticleInteractor;
 import javax.inject.Inject;
@@ -21,8 +22,14 @@ public class MainPresenter extends BasePresenter<MainPresenterView> {
     articleInteractor
         .getArticles()
         .subscribe(
-            results -> view.displayArticles(results),
-            error -> view.displayError("Network error, please try again!"));
+            results -> {
+              if (isViewAttached()) {
+                view.displayArticles(results);
+              } else {
+                Log.e(TAG, "view is not attached!!");
+              }
+            },
+            error -> view.displayError("Network error, please swipe to refresh!"));
   }
 
   public void refreshArticles() {

@@ -2,6 +2,7 @@ package com.app.demo.carsguide.ui;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,8 +15,6 @@ import com.app.demo.carsguide.base.BaseActivity;
 import com.app.demo.carsguide.ui.article.ArticleAdapter;
 import com.app.demo.data.model.Article;
 import java.util.List;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity implements MainPresenterView {
@@ -34,6 +33,7 @@ public class MainActivity extends BaseActivity implements MainPresenterView {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     component().inject(this);
+    Log.d(TAG, "onCreate() called!");
   }
 
   @Override protected void onPostCreate(Bundle savedInstanceState) {
@@ -41,7 +41,14 @@ public class MainActivity extends BaseActivity implements MainPresenterView {
     presenter.attachView(this);
     initToolbar(primaryColour, false);
     swipeRefreshLayout.setOnRefreshListener(refreshListener);
-    presenter.getArticles();
+
+    //add a handler to fake a slow network response, for testing purpose.
+    Handler handler = new Handler();
+    handler.postDelayed(new Runnable() {
+      @Override public void run() {
+        presenter.getArticles();
+      }
+    },2000);
   }
 
   @Override public void displayArticles(List<Article> articles) {
