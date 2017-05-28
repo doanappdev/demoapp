@@ -2,7 +2,6 @@ package com.app.demo.carsguide.ui;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,14 +40,7 @@ public class MainActivity extends BaseActivity implements MainPresenterView {
     presenter.attachView(this);
     initToolbar(primaryColour, false);
     swipeRefreshLayout.setOnRefreshListener(refreshListener);
-
-    //add a handler to fake a slow network response, for testing purpose.
-    Handler handler = new Handler();
-    handler.postDelayed(new Runnable() {
-      @Override public void run() {
-        presenter.getArticles();
-      }
-    },2000);
+    presenter.getArticles();
   }
 
   @Override public void displayArticles(List<Article> articles) {
