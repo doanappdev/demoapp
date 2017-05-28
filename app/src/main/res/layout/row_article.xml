@@ -45,7 +45,10 @@
           android:layout_height="wrap_content"
           android:padding="8dp"
           android:textSize="12sp"
-          tools:text="Test Abstract"
+          android:maxLines="2"
+          android:lines="2"
+          android:ellipsize="end"
+          tools:text="@string/test_long_abstract"
           />
       <TextView
           android:id="@+id/url_tv"
