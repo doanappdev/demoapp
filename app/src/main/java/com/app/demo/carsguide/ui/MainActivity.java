@@ -54,6 +54,9 @@ public class MainActivity extends BaseActivity implements MainPresenterView {
 
   @Override public void displayError(String errorMessage) {
     displaySnackBar(coordinatorLayout, errorMessage);
+    if (swipeRefreshLayout.isRefreshing()) {
+      swipeRefreshLayout.setRefreshing(false);
+    }
   }
 
   private void initAdapter(List<Article> articles) {
