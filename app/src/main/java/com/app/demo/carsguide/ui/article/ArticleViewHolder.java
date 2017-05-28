@@ -12,6 +12,9 @@ import butterknife.ButterKnife;
 import com.app.demo.carsguide.R;
 import com.app.demo.data.model.Article;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 /**
  * Created by doanappdev@gmail.com on 27/5/17.
@@ -35,7 +38,23 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
   }
 
   public void setIcon(Context context) {
-    Glide.with(context).load(article.getImageUrl()).into(iconIv);
+    Glide.with(context)
+        .load(article.getImageUrl())
+        .listener(new RequestListener<String, GlideDrawable>() {
+          @Override
+          public boolean onException(Exception e, String model, Target<GlideDrawable> target,
+              boolean isFirstResource) {
+            iconIv.setVisibility(View.GONE);
+            return false;
+          }
+
+          @Override public boolean onResourceReady(GlideDrawable resource, String model,
+              Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+            iconIv.setVisibility(View.VISIBLE);
+            return false;
+          }
+        })
+        .into(iconIv);
   }
 
   public void setTextView() {
@@ -51,9 +70,6 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
   }
 
   private String createHtmlLink(String url) {
-    //String newUrl = url.replace("\"", "");
-    //txtTest.setText( Html.fromHtml("<a href=\"http://www.google.com\">Google</a>"));
-    //String htmlLink = "<a href=\"" + url + "\">Article Link</a>";
     return "<a href=\"" + url + "\">Article Link</a>";
   }
 }

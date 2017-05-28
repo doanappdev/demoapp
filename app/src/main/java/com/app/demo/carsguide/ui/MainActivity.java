@@ -59,6 +59,8 @@ public class MainActivity extends BaseActivity implements MainPresenterView {
     if (adapter != null) {
       adapter.setArticleList(articles);
       adapter.notifyDataSetChanged();
+    } else {
+      initAdapter(articles);
     }
   }
 
@@ -75,10 +77,6 @@ public class MainActivity extends BaseActivity implements MainPresenterView {
   private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
     @Override public void onRefresh() {
       presenter.refreshArticles();
-      //if (!swipeRefreshLayout.isRefreshing()) {
-      //  swipeRefreshLayout.setRefreshing(true);
-      //  presenter.refreshArticles();
-      //}
     }
   };
 }
