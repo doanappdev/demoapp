@@ -29,6 +29,11 @@ public class MainPresenter extends BasePresenter<MainPresenterView> {
     //printArticles();
   }
 
+  public void refreshArticles() {
+    getArticles();
+  }
+
+
   //private void printArticles() {
   //  for (Article a : articles) {
   //    Log.d(TAG, "----------------------------");

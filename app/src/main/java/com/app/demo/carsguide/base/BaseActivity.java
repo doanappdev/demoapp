@@ -63,9 +63,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
   @Override public void showProgressDialog(String message) {
   }
 
-  @Override
-  public void hideProgressDialog() {
-
+  @Override public void hideProgressDialog() {
   }
 
   /** Toolbar **/
