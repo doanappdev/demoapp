@@ -25,6 +25,7 @@ public class MainPresenter extends BasePresenter<MainPresenterView> {
             results -> {
               if (isViewAttached()) {
                 view.displayArticles(results);
+                view.hideProgressDialog();
               } else {
                 Log.e(TAG, "view is not attached!!");
               }

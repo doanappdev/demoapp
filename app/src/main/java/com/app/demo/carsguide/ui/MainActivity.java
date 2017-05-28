@@ -2,11 +2,14 @@ package com.app.demo.carsguide.ui;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import butterknife.BindColor;
 import butterknife.BindView;
 import com.app.demo.carsguide.R;
@@ -21,6 +24,7 @@ public class MainActivity extends BaseActivity implements MainPresenterView {
   private static final String TAG = MainActivity.class.getSimpleName();
 
   @BindView(R.id.main_container) CoordinatorLayout coordinatorLayout;
+  @BindView(R.id.progress_bar) ProgressBar progressBar;
   @BindView(R.id.swipe_to_refresh) SwipeRefreshLayout swipeRefreshLayout;
   @BindView(R.id.article_rv) RecyclerView articlesRv;
   @BindColor(R.color.colorPrimary) int primaryColour;
@@ -40,6 +44,11 @@ public class MainActivity extends BaseActivity implements MainPresenterView {
     presenter.attachView(this);
     initToolbar(primaryColour, false);
     swipeRefreshLayout.setOnRefreshListener(refreshListener);
+    getArticles();
+  }
+
+  private void getArticles() {
+    showProgressDialog("");
     presenter.getArticles();
   }
 
@@ -73,6 +82,14 @@ public class MainActivity extends BaseActivity implements MainPresenterView {
     } else {
       initAdapter(articles);
     }
+  }
+
+  @Override public void showProgressDialog(String message) {
+    progressBar.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void hideProgressDialog() {
+    progressBar.setVisibility(View.GONE);
   }
 
   @Override public void onConfigurationChanged(Configuration newConfig) {
