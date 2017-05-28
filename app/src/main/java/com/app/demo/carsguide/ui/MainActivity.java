@@ -2,6 +2,7 @@ package com.app.demo.carsguide.ui;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,12 +14,15 @@ import com.app.demo.carsguide.base.BaseActivity;
 import com.app.demo.carsguide.ui.article.ArticleAdapter;
 import com.app.demo.data.model.Article;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity implements MainPresenterView {
 
   private static final String TAG = MainActivity.class.getSimpleName();
 
+  @BindView(R.id.main_container) CoordinatorLayout coordinatorLayout;
   @BindView(R.id.swipe_to_refresh) SwipeRefreshLayout swipeRefreshLayout;
   @BindView(R.id.article_rv) RecyclerView articlesRv;
   @BindColor(R.color.colorPrimary) int primaryColour;
@@ -48,10 +52,15 @@ public class MainActivity extends BaseActivity implements MainPresenterView {
     }
   }
 
+  @Override public void displayError(String errorMessage) {
+    displaySnackBar(coordinatorLayout, errorMessage);
+  }
+
   private void initAdapter(List<Article> articles) {
     adapter = new ArticleAdapter(this, articles);
     articlesRv.setLayoutManager(new LinearLayoutManager(this));
     articlesRv.setAdapter(adapter);
+    displaySnackBar(coordinatorLayout, "Download completed");
   }
 
   private void onRefresh(List<Article> articles) {

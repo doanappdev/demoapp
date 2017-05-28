@@ -16,8 +16,6 @@ public class MainPresenter extends BasePresenter<MainPresenterView> {
 
   private ArticleInteractor articleInteractor;
 
-  //private List<Article> articles;
-
   @Inject public MainPresenter(ArticleInteractor articleInteractor) {
     this.articleInteractor = articleInteractor;
   }
@@ -25,24 +23,12 @@ public class MainPresenter extends BasePresenter<MainPresenterView> {
   public void getArticles() {
     articleInteractor
         .getArticles()
-        .subscribe(results -> view.displayArticles(results));
-    //printArticles();
+        .subscribe(
+            results -> view.displayArticles(results),
+            error -> view.displayError("Network error, please try again!"));
   }
 
   public void refreshArticles() {
     getArticles();
   }
-
-
-  //private void printArticles() {
-  //  for (Article a : articles) {
-  //    Log.d(TAG, "----------------------------");
-  //    Log.d(TAG, "title : " + a.getTitle());
-  //    Log.d(TAG, "abstract : " + a.getAbstract());
-  //    Log.d(TAG, "image_url : " + a.getImageUrl());
-  //  }
-  //}
-
-
-
 }

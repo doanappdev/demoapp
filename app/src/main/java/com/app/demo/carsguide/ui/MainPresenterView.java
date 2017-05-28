@@ -11,4 +11,5 @@ import java.util.List;
 
 public interface MainPresenterView extends BaseView {
   void displayArticles(List<Article> articles);
+  void displayError(String errorMessage);
 }
