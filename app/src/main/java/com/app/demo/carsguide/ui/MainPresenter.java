@@ -30,7 +30,10 @@ public class MainPresenter extends BasePresenter<MainPresenterView> {
                 Log.e(TAG, "view is not attached!!");
               }
             },
-            error -> view.displayError("Network error, please swipe to refresh!"));
+            error -> {
+              view.displayError("Network error, please swipe to refresh!");
+              view.hideProgressDialog();
+            });
   }
 
   public void refreshArticles() {

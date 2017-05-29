@@ -1,8 +1,9 @@
 package com.app.demo.carsguide.ui;
 
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -68,7 +69,7 @@ public class MainActivity extends BaseActivity implements MainPresenterView {
   }
 
   private void initAdapter(List<Article> articles) {
-    adapter = new ArticleAdapter(this, articles);
+    adapter = new ArticleAdapter(this, articles, rowListener);
     articlesRv.setLayoutManager(new LinearLayoutManager(this));
     articlesRv.setAdapter(adapter);
     displaySnackBar(coordinatorLayout, "Download completed");
@@ -102,9 +103,28 @@ public class MainActivity extends BaseActivity implements MainPresenterView {
     presenter.detachView();
   }
 
+  private void displayWebView(String url) {
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setData(Uri.parse(url));
+    startActivity(intent);
+  }
+
+  private ArticleAdapter.OnArticleClickListener
+      rowListener = new ArticleAdapter.OnArticleClickListener() {
+    @Override public void onArticleClickListener(String url) {
+      if (url == null) {
+        displaySnackBar(coordinatorLayout, "No URL available!");
+      } else {
+        displayWebView(url);
+      }
+    }
+  };
+
   private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
     @Override public void onRefresh() {
       presenter.refreshArticles();
     }
   };
+
+
 }

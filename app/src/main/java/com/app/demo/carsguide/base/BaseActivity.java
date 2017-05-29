@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import com.app.demo.carsguide.CarsGuideApp;
 import com.app.demo.carsguide.R;
 import com.app.demo.carsguide.dagger.component.DaggerUiComponent;
@@ -24,6 +25,7 @@ import javax.inject.Inject;
 
 public class BaseActivity extends AppCompatActivity implements BaseView {
 
+  private Unbinder unbinder;
   @Inject protected SharedPreferences prefs;
 
   protected UiComponent component() {
@@ -40,7 +42,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
 
   @Override protected void onPostCreate(Bundle savedInstanceState) {
     initToolbar(-1, false);
-    ButterKnife.bind(this);
+    unbinder = ButterKnife.bind(this);
     super.onPostCreate(savedInstanceState);
   }
 
@@ -51,6 +53,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
   }
 
   @Override protected void onDestroy() {
+    unbinder.unbind();
     super.onDestroy();
   }
 
@@ -106,7 +109,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
 
   public static void launch(Activity fromActivity, Class<?> toActivity, Bundle args) {
     Intent intent = new Intent(fromActivity, toActivity);
-    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_ANIMATION);
     intent.putExtras(args);
     ActivityCompat.startActivity(fromActivity, intent, null);
   }

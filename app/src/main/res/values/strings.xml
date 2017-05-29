@@ -2,4 +2,7 @@
   <string name="app_name">carsguide</string>
 
   <string name="test_long_abstract">"Initial French findings show that Andreas Lubitz, the co-pilot suspected of deliberately flying a German airliner into the French Alps, repeatedly set the plane’s altitude to 100 feet during its outbound flight to Spain."</string>
+
+  <string name="key_url">KEY_URL</string>
 </resources>
+
