@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity implements MainPresenterView {
   }
 
   private void initAdapter(List<Article> articles) {
-    adapter = new ArticleAdapter(this, articles, rowListener);
+    adapter = new ArticleAdapter(this, articles, articleClickListener);
     articlesRv.setLayoutManager(new LinearLayoutManager(this));
     articlesRv.setAdapter(adapter);
     displaySnackBar(coordinatorLayout, "Download completed");
@@ -109,8 +109,8 @@ public class MainActivity extends BaseActivity implements MainPresenterView {
     startActivity(intent);
   }
 
-  private ArticleAdapter.OnArticleClickListener
-      rowListener = new ArticleAdapter.OnArticleClickListener() {
+  private ArticleAdapter.OnArticleClickListener articleClickListener =
+      new ArticleAdapter.OnArticleClickListener() {
     @Override public void onArticleClickListener(String url) {
       if (url == null) {
         displaySnackBar(coordinatorLayout, "No URL available!");
